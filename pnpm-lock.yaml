@@ -7,7 +7,6 @@ specifiers:
   '@types/express': ^4.17.17
   concurrently: ^7.6.0
   cors: ^2.8.5
-  dotenv: ^16.0.3
   express: ^4.18.2
   mitt: ^3.0.0
   nodemon: ^2.0.20
@@ -15,7 +14,6 @@ specifiers:
 
 dependencies:
   cors: 2.8.5
-  dotenv: 16.0.3
   express: 4.18.2
   mitt: 3.0.0
   puppeteer: 19.7.0_mitt@3.0.0
@@ -737,11 +735,6 @@ packages:
 
   /devtools-protocol/0.0.1094867:
     resolution: {integrity: sha512-pmMDBKiRVjh0uKK6CT1WqZmM3hBVSgD+N2MrgyV1uNizAZMw4tx6i/RTc+/uCsKSCmg0xXx7arCP/OFcIwTsiQ==}
-    dev: false
-
-  /dotenv/16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
     dev: false
 
   /ee-first/1.1.1:
