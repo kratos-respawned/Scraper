@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import fs from "fs";
 (async () => {
   const browser = await puppeteer.launch({
     // headless: false,
@@ -6,20 +7,34 @@ import puppeteer from "puppeteer";
     userDataDir: "./tmp",
   });
   const page = await browser.newPage();
-  await page.goto(
-    "https://www.amazon.in/s?k=gaming+laptop+under+60000&qid=1676473936&sprefix=gaming+lap%2Caps%2C318&ref=sr_pg_1"
+  await page.goto("https://www.amazon.in/");
+  await page.waitForSelector("#twotabsearchtextbox");
+  await page.type("#twotabsearchtextbox", "iphone 14");
+  await page.click("#nav-search-submit-button");
+  await page.waitForSelector(
+    ".s-card-container.s-overflow-hidden.aok-relative.puis-include-content-margin.puis.s-latency-cf-section.s-card-border>div>div"
   );
   const list = await page.$$(
     ".s-card-container.s-overflow-hidden.aok-relative.puis-include-content-margin.puis.s-latency-cf-section.s-card-border>div>div"
   );
   const items = list.map(async (item, index) => {
-    const title = await page.evaluate(
+    let title = await page.evaluate(
       (el) =>
         el.querySelector(
           ".a-section.a-spacing-none.puis-padding-right-small.s-title-instructions-style>h2>a>span"
         )?.innerHTML,
       item
     );
+    let link = await page.evaluate(
+      (el) =>
+        el
+          .querySelector(
+            ".a-section.a-spacing-none.puis-padding-right-small.s-title-instructions-style>h2>a"
+          )
+          ?.getAttribute("href"),
+      item
+    );
+    link = `https://www.amazon.in${link}`;
     const price = await page.evaluate(
       (el) =>
         el.querySelector(
@@ -34,8 +49,18 @@ import puppeteer from "puppeteer";
         )?.innerHTML,
       item
     );
-    return { index, title, price, rating };
+    title = title?.replace(/\,/, "|");
+    return { index, title, price, rating, link };
   });
   const result = await Promise.all(items);
-  console.log(result);
+  fs.writeFileSync("./out/result.json", JSON.stringify(result));
+  fs.writeFileSync(
+    "./out/result.csv",
+    result
+      .map((item) => {
+        return `${item.index},${item.title},${item.price},${item.rating},${item.link}`;
+      })
+      .join("\n")
+  );
+  await browser.close();
 })();
