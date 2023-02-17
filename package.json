@@ -1,7 +1,7 @@
 {
-  "name": "ts_node_project",
-  "version": "1.0.0",
-  "description": "Template for nodeTs project",
+  "name": "amazon_scraper",
+  "version": "1.5.0",
+  "description": "Amazon Scraper",
   "main": "./src/index.ts",
   "type": "module",
   "scripts": {
