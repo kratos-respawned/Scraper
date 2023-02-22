@@ -3,7 +3,10 @@ export default async function Scrape({ query }: { query: string }) {
   if (!query) {
     return;
   }
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    userDataDir: "./user_data",
+  });
   const page = await browser.newPage();
   await page.goto("https://www.amazon.in/");
   await page.waitForSelector("#twotabsearchtextbox");

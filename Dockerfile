@@ -1,9 +1,9 @@
 # use node based image
-FROM node:19-alpine
-COPY package.json /app/
-COPY  src /app/src
+FROM node:18
 WORKDIR /app
+COPY package.json ./
 RUN npm install
-RUN npm run build
-CMD [ "node","./dist/index.js" ]
+COPY . .
+CMD [ "npm", "run", "dev" ]
+
 
