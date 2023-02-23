@@ -5,6 +5,7 @@ export default async function Scrape({ query }: { query: string }) {
   }
   const browser = await puppeteer.launch({
     headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
     userDataDir: "./user_data",
   });
   const page = await browser.newPage();
