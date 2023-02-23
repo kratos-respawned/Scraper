@@ -2,6 +2,7 @@ import express from "express";
 import Scrape from "./scraper.js";
 import cors from "cors";
 const app = express();
+console.log("Hello World");
 app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {
